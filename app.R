@@ -21,7 +21,13 @@ server <- shinyServer(function(input, output) {
         for (i in 1:20) {
             hc <- hc %>% 
                 hc_chart(type="area") %>%
-                hc_add_series(name="Pears", data=sample(100, 5)) %>%
+                hc_add_series(name="Pears", data=sample(100, 5))
+            
+            if (runif(1) < 0.5)
+                hc <- hc %>%
+                    hc_add_series(name="Mangos", data=sample(100, 5))
+            
+            hc <- hc %>%
                 hc_add_series(name="Oranges", data=sample(100, 5)) %>%
                 hc_new_sparkline()
         }
