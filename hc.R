@@ -14,12 +14,11 @@
 hc_new_sparkline <- function(hc) {
     series <- hc$x$hc_opts$series
     
-    # Check if first element of elements are characters or lists
-    stored <- vapply(series, function(i) class(i[[1]]), 
-                     character(1)) == "list"
+    # Check which series were not yet stored
+    stored <- seq_along(series) %in% unlist(attr(hc, "sparklines"))
     
-    # Group all unstored
-    hc$x$hc_opts$series <- c(series[stored], list(series[!stored]))
+    # Group all unstored series
+    attr(hc, "sparklines") <- c(attr(hc, "sparklines"), list(which(!stored)))
     attr(hc, "class") <- c("sparkline", attr(hc, "class"))
     return(hc)
 }
@@ -62,9 +61,9 @@ hchart.sparkline <- function (hc, auto=TRUE, width=120, height=20) {
     
     # Create an HTML object for each sparkline in the Sparkline object
     html <- NULL
-    for (sparkline in seq_along(series)) {
+    for (sparkline in attr(hc, "sparklines")) {
         params <- hc
-        params$x$hc_opts$series <- params$x$hc_opts$series[[sparkline]]
+        params$x$hc_opts$series <- params$x$hc_opts$series[sparkline]
         params <- toJSON(params$x$hc_opts, auto_unbox = TRUE)
         html <- c(html,
                   sprintf("<sparkline data-sparkline='%s'/>", params))
