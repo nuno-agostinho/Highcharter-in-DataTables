@@ -1,0 +1,10 @@
+name: Highcharter_sparklines_in_DataTables
+account: nuno-agostinho
+server: shinyapps.io
+appId: 114038
+bundleId: 503285
+url: https://nuno-agostinho.shinyapps.io/Highcharter_sparklines_in_DataTables/
+when: 1468368104.42803
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: www/styles.css
