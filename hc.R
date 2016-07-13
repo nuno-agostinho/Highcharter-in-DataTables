@@ -81,7 +81,7 @@ hchart.sparkline <- function (hc, auto=TRUE, width=120, height=20) {
 #' @param options List of options to pass to \code{\link{renderDataTable}}
 renderDataTableSparklines <- function(..., options=NULL) {
     # Escape is set to FALSE to render the Sparkline HTML elements
-    renderDataTable(..., escape=FALSE, options=c(
+    renderDataTable(..., escape=FALSE, env=parent.frame(n=1), options=c(
         list(drawCallback=I("function() { drawSparklines(); }")),
         options))
 }
